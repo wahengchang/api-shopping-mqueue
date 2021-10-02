@@ -1,17 +1,26 @@
-const express = require('express')
-const app = express()
+(async () => {
+  const express = require('express')
+  const mq = require('./lib/mqProvider')
+  const app = express()
 
-app.use(express.static('public'))
+  app.use(require('./lib/expressFunction'))
+  app.use(express.static('public'))
 
-app.use('/products', require('./routers/products'))
-app.use('/user', require('./routers/users'))
+  await mq.init()
 
-app.get('/', function (req, res) {
-    res.send('Hello World!')
+  app.use('/products', require('./routers/products'))
+  app.use('/user', require('./routers/users'))
+
+  app.get('/', async (req, res) => {
+    const title = `title-${new Date().getTime()}`
+    await mq.add({title})
+    return res.send('Hello World!')
   })
 
-const port = process.env.PORT || 3000
+  const port = process.env.PORT || 3000
 
-app.listen(port, function () {
-  console.log(`Example app listening on port ${port}! \n http://localhost:${port}`)
-})
+  app.listen(port, function () {
+    console.log(`Example app listening on port ${port}! \n http://localhost:${port}`)
+  })
+
+})()

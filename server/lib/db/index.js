@@ -2,7 +2,7 @@ const Sequelize = require('sequelize')
 
 class DB {
   constructor(_config = null) {
-    const config = _config || require('./config')
+    const config = _config || require('../../../config')
     const {dialect, storage, logging} = config
     const sequelize = new Sequelize({
       dialect, storage, logging,
