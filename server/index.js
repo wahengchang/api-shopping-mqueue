@@ -4,7 +4,7 @@ const app = express()
 app.use(express.static('public'))
 
 app.use('/products', require('./routers/products'))
-app.use('/users', require('./routers/users'))
+app.use('/user', require('./routers/users'))
 
 app.get('/', function (req, res) {
     res.send('Hello World!')

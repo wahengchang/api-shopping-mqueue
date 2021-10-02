@@ -2,10 +2,9 @@ const Base = require('../ControllerBase')
 const Sequelize = require('sequelize')
 const Model = require('./model')
 
-class UserController extends Base {
+class Controller extends Base {
     constructor(_config){
         super(_config)
-
         const {sequelize} = this
         this.model = Model(sequelize, Sequelize)
     }
@@ -25,4 +24,4 @@ class UserController extends Base {
     }
 }
 
-module.exports = UserController
+module.exports = Controller
