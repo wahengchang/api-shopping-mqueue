@@ -50,6 +50,7 @@ router.post('/login', async function (req, res) {
     const isCorrectPassword= await bcrypt.compare(password, user.password)
     if(!isCorrectPassword) return res.responseDefaultError(StatusCodes.FORBIDDEN)
 
+    delete user['password'];
     const token = auth.signToken(user)
     return res.status(200).json({
       ...user,

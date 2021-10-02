@@ -82,7 +82,8 @@
               price
             })
             console.log('3) TranInstance create: ', newTran)
-            await ProductInstance.update(productId, {quanity: productItem.quanity-1})
+            
+            await ProductInstance.update(productId, {quantity: productItem.quantity-1})
             console.log('4) reduct quanity of product')
 
             await UserInstance.update(userId, {balance: userItem.balance-price})

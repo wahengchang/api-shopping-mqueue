@@ -56,13 +56,16 @@ router.post('/purchase', requiredLogin, async function (req, res) {
       return res.responseDefaultError(StatusCodes.NOT_ACCEPTABLE, "you don't have enough balance")
     }
 
-    await mq.add({
+    const mqRes = await mq.add({
       productId: product.id,
       userId: user.id,
       price
     })
 
-    return res.json(user)
+
+    return res.json({
+      user
+    })
   }
   catch(e) {
     console.error(e)
