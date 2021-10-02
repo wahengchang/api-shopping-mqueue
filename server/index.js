@@ -2,14 +2,15 @@
   const express = require('express')
   const mq = require('./lib/mqProvider')
   const app = express()
-
-  app.use(require('./lib/expressFunction'))
+  
+  app.use(require('./middleware/expressFunction'))
   app.use(express.static('public'))
 
   await mq.init()
 
   app.use('/products', require('./routers/products'))
   app.use('/user', require('./routers/users'))
+  app.use('/me', require('./routers/me'))
 
   app.get('/', async (req, res) => {
     const title = `title-${new Date().getTime()}`

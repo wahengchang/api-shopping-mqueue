@@ -9,10 +9,7 @@ router.get('/:id', async (req, res) => {
     const {id} = req.params
 
     if(!id) {
-      res.status(StatusCodes.PRECONDITION_FAILED)
-      return res.json({
-        error: getReasonPhrase(StatusCodes.PRECONDITION_FAILED)
-      });
+      return res.responseDefaultError(StatusCodes.PRECONDITION_FAILED)
     }
     
     const ProductCon = new ProductController()
@@ -21,10 +18,7 @@ router.get('/:id', async (req, res) => {
     return res.json(foundItem)
   }
   catch(e) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR)
-    return res.json({
-      error: getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)
-    });
+    return res.responseDefaultError(StatusCodes.INTERNAL_SERVER_ERROR)
   }
 })
 
@@ -36,10 +30,7 @@ router.get('/', async (req, res) => {
     return res.json(foundItemList);
   }
   catch(e) {
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR)
-    return res.json({
-      error: getReasonPhrase(StatusCodes.INTERNAL_SERVER_ERROR)
-    });
+    return res.responseDefaultError(StatusCodes.INTERNAL_SERVER_ERROR)
   }
 })
 

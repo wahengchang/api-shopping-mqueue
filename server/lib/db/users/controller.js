@@ -1,27 +1,38 @@
 const Base = require('../ControllerBase')
-const Sequelize = require('sequelize')
 const UserModel = require('./model')
+
+const removePasswordField = (json) => {
+    delete json['password'];
+    return json
+}
 
 class UserController extends Base {
     constructor(_config){
         super(_config)
-
-        const {sequelize} = this
-        this.model = UserModel(sequelize, Sequelize)
+        this.model = UserModel
     }
     async create(payload = {}) {
       const {model} = this
       const data = await model.create({...payload})
-      return data.dataValues
+      const result = data.dataValues
+      return removePasswordField(result)
     }
-    findById (id) {
-        return this.model.findOne({ where: {id}})
+    async findById (id) {
+        const result = await this.model.findOne({ where: {id}})
+        return removePasswordField(result)
     }
-    list() {
-        return this.model.findAll()
+    async findByUsername (username, config = {}) {
+        const {includePassword} = config
+        const result = await this.model.findOne({ where: {username}})
+
+        if(includePassword) {
+            return result
+        }
+        return removePasswordField(result)
     }
-    update(id, payload = {}) {
-        return this.model.update(payload, {where: {id}})
+    async update(id, payload = {}) {
+        const result = await this.model.update(payload, {where: {id}})
+        return removePasswordField(result)
     }
 }
 

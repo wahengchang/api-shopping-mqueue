@@ -12,20 +12,27 @@ describe('[ProductController] ', ()=>{
     it('[ProductController] should have findById()', async ()=>{
         const ProductCon = new ProductController()
         const title = `title-${new Date().getTime()}`
+        const price = 11
+        const quantity = 99
+        const beginAt = new Date('2030-01-01')
         await ProductCon.init({isPurge: true})
-        const createdItem = await ProductCon.create({title})
+        const createdItem = await ProductCon.create({title, price, quantity, beginAt})
         const foundItem = await ProductCon.findById(createdItem.id)
         expect(createdItem.id).toEqual(foundItem.id);
         expect(createdItem.title).toEqual(foundItem.title);
         expect(createdItem.price).toEqual(foundItem.price);
+        expect(new Date(createdItem.beginAt)).toEqual(beginAt);
     })
 
 
     it('[ProductController] should able to update()', async ()=>{
         const ProductCon = new ProductController()
         const title = `title-${new Date().getTime()}`
+        const price = 12
+        const quantity = 67
+
         await ProductCon.init({isPurge: true})
-        const createdItem = await ProductCon.create({title})
+        const createdItem = await ProductCon.create({title, price, quantity})
         const foundItem = await ProductCon.findById(createdItem.id)
         expect(createdItem.id).toEqual(foundItem.id);
         expect(createdItem.title).toEqual(foundItem.title);
@@ -51,7 +58,7 @@ describe('[ProductController] ', ()=>{
             expect(typeof foundItemList[i].title).toEqual('string');
             expect(typeof foundItemList[i].price).toEqual('number');
             expect(typeof foundItemList[i].quantity).toEqual('number');
-            expect(typeof foundItemList[i].beginAt).toEqual('object');
+            expect(typeof foundItemList[i].beginAt).toEqual('string');
         }
     })
 })

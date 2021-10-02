@@ -10,6 +10,8 @@ $ docker run -it --rm --name rabbitmq -p 5672: 5672 -p 15672: 15672 rabbitmq: 3-
 
 To Optimize:
  - prefetch, count, value
+ - limit, offset for pagination
+ - 
 
 
 
@@ -36,6 +38,7 @@ user
 
     purchaseHistory: []
 }
+
 
 
 

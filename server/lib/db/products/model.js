@@ -1,29 +1,32 @@
 const Sequelize = require('sequelize')
+const DB = require('../index.js')
+const sequelize = DB.getSequelize()
 
-module.exports = (sequelize, type) => {
-  return sequelize.define('products', {
+const Product = sequelize.define('Product', {
       id: {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV1,
         primaryKey: true,
       },
       title: {
-        type: type.STRING,
+        type: Sequelize.STRING,
         allowNull: false
       },
       price: {
-        type: type.FLOAT,
-        defaultValue: 0,
+        type: Sequelize.FLOAT,
+        defaultValue: 1,
         allowNull: false
       },      
       quantity: {
-        type: type.INTEGER,
+        type: Sequelize.INTEGER,
         defaultValue: 0,
         allowNull: true
       },      
       beginAt: {
-        type: type.DATE,
-        allowNull: true
+        type: Sequelize.DATE,
+        allowNull: true,
+        defaultValue: Sequelize.NOW
       },      
   })
-}
+
+  module.exports = Product

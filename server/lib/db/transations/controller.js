@@ -1,9 +1,11 @@
 const Base = require('../ControllerBase')
 const Model = require('./model')
+const ProductModel = require('../products/model')
 
 class Controller extends Base {
     constructor(_config){
         super(_config)
+        const {sequelize} = this
         this.model = Model
     }
     async create(payload = {}) {
@@ -12,7 +14,9 @@ class Controller extends Base {
       return data.dataValues
     }
     findById (id) {
-        return this.model.findOne({ where: {id}})
+        return this.model.findOne({
+            where: {id},
+        })
     }
     list() {
         return this.model.findAll()

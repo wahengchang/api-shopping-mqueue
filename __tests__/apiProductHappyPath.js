@@ -20,7 +20,7 @@ describe('[/products] happy path', ()=>{
             expect(typeof body[i].title).toEqual('string');
             expect(typeof body[i].price).toEqual('number');
             expect(typeof body[i].quantity).toEqual('number');
-            expect(typeof body[i].beginAt).toEqual('object');
+            expect(typeof body[i].beginAt).toEqual('string');
         }
 
         firstItemId = body[0].id
@@ -38,7 +38,7 @@ describe('[/products] happy path', ()=>{
         expect(typeof res.body.title).toEqual('string')
         expect(typeof res.body.price).toEqual('number')
         expect(typeof res.body.quantity).toEqual('number')
-        expect(typeof res.body.beginAt).toEqual('object')
+        expect(typeof res.body.beginAt).toEqual('string')
     })
 
     it('[/products] should return NULL for non-existed id', async ()=>{

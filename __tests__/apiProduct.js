@@ -3,7 +3,10 @@ const {getReasonPhrase} = require('http-status-codes')
 const route = require('../server/routers/products')
 const express = require("express");
 const app = express();
+app.use(require('../server/middleware/expressFunction'))
+
 app.use(express.urlencoded({ extended: false }));
+
 app.use("/", route);
 
 const mockProductController = require('../server/lib/db/products/controller')
