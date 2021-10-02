@@ -41,9 +41,7 @@ describe('[ProductController] ', ()=>{
 
     it('[ProductController] should have list()', async ()=>{
         const ProductCon = new ProductController()
-        // const title = `title-${new Date().getTime()}`
         await ProductCon.init({isPurge: true})
-        // const createdItem = await ProductCon.create({title})
         const foundItemList = await ProductCon.list()
 
         expect(Array.isArray(foundItemList)).toEqual(true);

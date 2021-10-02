@@ -9,7 +9,7 @@ app.use("/", route);
 const mockProductController = require('../server/lib/db/products/controller')
 jest.mock('../server/lib/db/products/controller'); 
 
-describe('[ProductController] happy path', ()=>{
+describe('[/products] Exception', ()=>{
     beforeAll(()=> {
         mockProductController.mockImplementation(() => {
             throw new Error('mock error')
@@ -18,7 +18,7 @@ describe('[ProductController] happy path', ()=>{
     beforeEach(() => {
         mockProductController.mockClear();
     });
-    it('[ProductController] should recieve 500 status code, with message', async ()=>{
+    it('[/products] should recieve 500 status code, with message', async ()=>{
         const res = await request(app).get("/")
         expect(mockProductController).toHaveBeenCalledTimes(1);
         expect(res.statusCode).toEqual(500);
