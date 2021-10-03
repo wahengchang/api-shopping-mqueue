@@ -1,12 +1,14 @@
 (async () => {
   const express = require('express')
   const mq = require('./lib/mqProvider')
+  const DB = require('./lib/db/index')
   const app = express()
   
   app.use(require('./middleware/expressFunction'))
   app.use(express.static('public'))
 
   await mq.init()
+  await DB.init()
 
   app.use('/products', require('./routers/products'))
   app.use('/user', require('./routers/users'))

@@ -17,7 +17,6 @@ class ControlerBase {
     update() {
         throw new Error('not implement yet')
     }
-    
 }
 
 module.exports = ControlerBase
